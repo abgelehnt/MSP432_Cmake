@@ -12,9 +12,7 @@ set(CMAKE_OBJDUMP arm-none-eabi-objdump)
 set(SIZE arm-none-eabi-size)
 set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
 
-#set(CMAKE_TOOLCHAIN_FILE ${CMAKE_CURRENT_SOURCE_DIR}/../msp-toolchain.cmake)
-
-project(MSP432_Clion C CXX ASM)
+project(MSP432_Cmake C CXX ASM)
 
 set(LINKER_SCRIPT ${CMAKE_SOURCE_DIR}/msp432p401r.lds)
 
@@ -23,14 +21,15 @@ add_compile_options(-mcpu=cortex-m4 -march=armv7e-m -mthumb -mfloat-abi=hard -mf
 
 add_link_options(-Og -g -gdwarf-3 -gstrict-dwarf -Wall -march=armv7e-m -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -mthumb -g -gstrict-dwarf -Wall -Wl,--start-group -lgcc -lnosys -lc -Wl,--end-group )
 add_link_options(-T ${LINKER_SCRIPT})
+
 include_directories(D:\\softwares\\TI\\simplelink_msp432p4_sdk_3_40_01_02\\source\\ti
         D:\\softwares\\TI\\simplelink_msp432p4_sdk_3_40_01_02\\source
         D:\\softwares\\TI\\CCS\\ccs\\ccs_base\\arm\\include
         D:\\softwares\\TI\\CCS\\ccs\\ccs_base\\arm\\include\\CMSIS)
 
-add_executable(MSP432_Clion.elf main.c system_msp432p401r.c startup_msp432p401r_gcc.c)
+add_executable(${PROJECT_NAME}.elf main.c system_msp432p401r.c startup_msp432p401r_gcc.c)
 
-target_link_libraries(MSP432_Clion.elf "D:\\\\softwares\\\\TI\\\\simplelink_msp432p4_sdk_3_40_01_02\\\\source\\\\ti\\\\devices\\\\msp432p4xx\\\\driverlib\\\\gcc\\\\msp432p4xx_driverlib.a")
+target_link_libraries(${PROJECT_NAME}.elf "D:\\\\softwares\\\\TI\\\\simplelink_msp432p4_sdk_3_40_01_02\\\\source\\\\ti\\\\devices\\\\msp432p4xx\\\\driverlib\\\\gcc\\\\msp432p4xx_driverlib.a")
 
 set(HEX_FILE ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.hex)
 set(BIN_FILE ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.bin)
